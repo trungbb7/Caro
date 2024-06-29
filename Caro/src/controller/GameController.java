@@ -11,13 +11,11 @@ public class GameController implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		Game game = Game.getInstance();
-		if (game.getTurn() == Game.playerTurn) {
+		if (game.getTurn() == Game.PLAYER_TURN) {
 			Cell cell = (Cell) e.getSource();
-			if (cell.tick == Game.nonTick) {
-				game.getBoard().signCell(cell.y, cell.x, Game.playerTick);
-				game.setTurn(Game.botTurn);
+			if (cell.tick == Game.NON_TICK) {
+				game.handlePlayerAction(cell.y, cell.x);
 			}
-			game.notifyObserver();
 		}
 
 	}
@@ -38,10 +36,10 @@ public class GameController implements MouseListener {
 	public void mouseEntered(MouseEvent e) {
 		Game game = Game.getInstance();
 		Cell cell = (Cell) e.getSource();
-		if (game.getState() == Game.continueState) {
-			if (cell.tick == Game.nonTick) {
-				cell.setText(Game.playerSign);
-				cell.setForeground(Game.playerColor);
+		if (game.getState() == Game.CONTINUE_STATE) {
+			if (cell.tick == Game.NON_TICK) {
+				cell.setText(Game.PLAYER_SIGN);
+				cell.setForeground(Game.PLAYER_COLOR);
 			}
 		}
 	}
@@ -50,8 +48,8 @@ public class GameController implements MouseListener {
 	public void mouseExited(MouseEvent e) {
 		Game game = Game.getInstance();
 		Cell cell = (Cell) e.getSource();
-		if (game.getState() == Game.continueState) {
-			if (cell.tick == Game.nonTick) {
+		if (game.getState() == Game.CONTINUE_STATE) {
+			if (cell.tick == Game.NON_TICK) {
 				cell.setText("");
 
 			}

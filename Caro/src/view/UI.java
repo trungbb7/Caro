@@ -1,12 +1,14 @@
 package view;
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Container;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import controller.HomeController;
+import model.Game;
 
 public class UI extends JFrame {
 	/**
@@ -40,6 +42,8 @@ public class UI extends JFrame {
 
 	public void init() {
 		container = this.getContentPane();
+		container.setBackground(Game.BACKGROUND_COLOR);
+//		container.setBackground(new Color(16, 27, 39));
 		card = new CardLayout();
 		container.setLayout(card);
 		match = new Match();

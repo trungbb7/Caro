@@ -15,6 +15,7 @@ public class Cell extends JLabel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private Color borderColor = new Color(44, 62, 80);
 	public int tick;
 	public int y;
 	public int x;
@@ -22,11 +23,12 @@ public class Cell extends JLabel {
 	public Cell(int y, int x) {
 		this.y = y;
 		this.x = x;
-		this.tick = Game.nonTick;
+		this.tick = Game.NON_TICK;
 		this.setLayout(new FlowLayout(FlowLayout.CENTER));
-		this.setFont(new Font("Bauhaus 93", Font.PLAIN, 20));
+		this.setFont(new Font("Bauhaus 93", Font.PLAIN, 28));
 		this.setHorizontalAlignment(SwingConstants.CENTER);
-		setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+		setBorder(BorderFactory.createLineBorder(borderColor, 1));
+		setBackground(new Color(12, 20, 29));
 	}
 
 	public Cell(int y, int x, int tick) {
@@ -34,9 +36,9 @@ public class Cell extends JLabel {
 		this.x = x;
 		this.tick = tick;
 		this.setLayout(new FlowLayout(FlowLayout.CENTER));
-		this.setFont(new Font("Bauhaus 93", Font.PLAIN, 20));
+		this.setFont(new Font("Bauhaus 93", Font.PLAIN, 28));
 		this.setHorizontalAlignment(SwingConstants.CENTER);
-		setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+		setBorder(BorderFactory.createLineBorder(borderColor, 1));
 	}
 
 	public void setBorderColor(Color color) {

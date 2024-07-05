@@ -57,7 +57,10 @@ public class Option extends JPanel {
 		levelP.add(hardBtn);
 		levelBG.add(easyBtn);
 		levelBG.add(hardBtn);
-		levelP.setBorder(new TitledBorder(getBorder(),"Level",TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION,new Font("roboto", Font.BOLD, 16),textColor));
+		levelP.setBorder(new TitledBorder(getBorder(), "Level",
+				TitledBorder.DEFAULT_JUSTIFICATION,
+				TitledBorder.DEFAULT_POSITION,
+				new Font("roboto", Font.BOLD, 16), textColor));
 		JPanel typeP = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		typeP.setBackground(Game.TRANSPARENT_COLOR);
 		typeBG = new ButtonGroup();
@@ -71,7 +74,10 @@ public class Option extends JPanel {
 		typeP.add(type15Btn);
 		typeBG.add(type10Btn);
 		typeBG.add(type15Btn);
-		typeP.setBorder(new TitledBorder(getBorder(),"Board type",TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION,new Font("roboto", Font.BOLD, 16),textColor));
+		typeP.setBorder(new TitledBorder(getBorder(), "Board type",
+				TitledBorder.DEFAULT_JUSTIFICATION,
+				TitledBorder.DEFAULT_POSITION,
+				new Font("roboto", Font.BOLD, 16), textColor));
 
 		JPanel wrapPanel = new JPanel(new GridLayout(2, 1, 10, 10));
 		wrapPanel.setBackground(Game.TRANSPARENT_COLOR);

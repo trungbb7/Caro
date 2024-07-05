@@ -19,26 +19,31 @@ public class Bot implements Observer {
 	}
 
 	public int[] makeMove(int[][] board) {
-		return minimax(board, this.level, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
+		return minimax(board, this.level, Integer.MIN_VALUE, Integer.MAX_VALUE,
+				true);
 	}
 
-	private int[] minimax(int[][] board, int depth, int alpha, int beta, boolean maximizingPlayer) {
+	private int[] minimax(int[][] board, int depth, int alpha, int beta,
+			boolean maximizingPlayer) {
 		List<int[]> possibleMoves = generateMoves(board);
 
 		if (depth == 0 || isGameOver(board)) {
 			int score = evaluate(board);
-			return new int[] { -1, -1, score };
+			return new int[]{-1, -1, score};
 		}
 
 		int[] bestMove = new int[3];
-		int bestScore = maximizingPlayer ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+		int bestScore = maximizingPlayer
+				? Integer.MIN_VALUE
+				: Integer.MAX_VALUE;
 
 		for (int[] move : possibleMoves) {
 			int row = move[0];
 			int col = move[1];
 
 			board[row][col] = maximizingPlayer ? player : opponent;
-			int[] currentMoveScore = minimax(board, depth - 1, alpha, beta, !maximizingPlayer);
+			int[] currentMoveScore = minimax(board, depth - 1, alpha, beta,
+					!maximizingPlayer);
 			board[row][col] = 0; // Undo move
 
 			if (maximizingPlayer) {
@@ -68,7 +73,8 @@ public class Bot implements Observer {
 
 	private boolean isGameOver(int[][] board) {
 
-		boolean result = hasPlayerWon(board, player) || hasPlayerWon(board, opponent) || isBoardFull(board);
+		boolean result = hasPlayerWon(board, player)
+				|| hasPlayerWon(board, opponent) || isBoardFull(board);
 		if (result) {
 		}
 		return result;
@@ -79,7 +85,9 @@ public class Bot implements Observer {
 
 		// Kiểm tra các hàng và cột
 		for (int i = 0; i < size; i++) {
-			for (int j = 0; j <= size - 5; j++) { // chỉ cần xét đến cột size - 5 để tránh vượt quá phạm vi
+			for (int j = 0; j <= size - 5; j++) { // chỉ cần xét đến cột size -
+													// 5 để tránh vượt quá phạm
+													// vi
 				boolean rowWin = true;
 				boolean colWin = true;
 				for (int k = 0; k < 5; k++) {
@@ -97,11 +105,15 @@ public class Bot implements Observer {
 		}
 
 		// Kiểm tra các đường chéo chính (\)
-		for (int i = 0; i <= size - 5; i++) { // chỉ cần xét đến hàng size - 5 để tránh vượt quá phạm vi
-			for (int j = 0; j <= size - 5; j++) { // chỉ cần xét đến cột size - 5 để tránh vượt quá phạm vi
+		for (int i = 0; i <= size - 5; i++) { // chỉ cần xét đến hàng size - 5
+												// để tránh vượt quá phạm vi
+			for (int j = 0; j <= size - 5; j++) { // chỉ cần xét đến cột size -
+													// 5 để tránh vượt quá phạm
+													// vi
 				boolean diagonalWin = true;
 				for (int k = 0; k < 5; k++) {
-					if (board[i + k][j + k] != player) { // Kiểm tra đường chéo chính
+					if (board[i + k][j + k] != player) { // Kiểm tra đường chéo
+															// chính
 						diagonalWin = false;
 					}
 				}
@@ -112,11 +124,14 @@ public class Bot implements Observer {
 		}
 
 		// Kiểm tra các đường chéo phụ (/)
-		for (int i = 0; i <= size - 5; i++) { // chỉ cần xét đến hàng size - 5 để tránh vượt quá phạm vi
-			for (int j = 4; j < size; j++) { // bắt đầu từ cột 4 để đảm bảo không vượt quá phạm vi
+		for (int i = 0; i <= size - 5; i++) { // chỉ cần xét đến hàng size - 5
+												// để tránh vượt quá phạm vi
+			for (int j = 4; j < size; j++) { // bắt đầu từ cột 4 để đảm bảo
+												// không vượt quá phạm vi
 				boolean diagonalWin = true;
 				for (int k = 0; k < 5; k++) {
-					if (board[i + k][j - k] != player) { // Kiểm tra đường chéo phụ
+					if (board[i + k][j - k] != player) { // Kiểm tra đường chéo
+															// phụ
 						diagonalWin = false;
 					}
 				}
@@ -147,7 +162,7 @@ public class Bot implements Observer {
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
 				if (board[i][j] == 0) {
-					possibleMoves.add(new int[] { i, j });
+					possibleMoves.add(new int[]{i, j});
 				}
 			}
 		}
@@ -163,16 +178,18 @@ public class Bot implements Observer {
 
 	private int evaluateLines(int[][] board, int player) {
 		int size = board.length;
-		int[] lineWeights = { 0, 1, 10, 100, 1000 }; // Độ ưu tiên theo độ dài đường ăn
+		int[] lineWeights = {0, 1, 10, 100, 1000}; // Độ ưu tiên theo độ dài
+													// đường ăn
 
 		int totalScore = 0;
 
-		// Các hướng kiểm tra đường ăn (hàng ngang, cột dọc, đường chéo chính, đường
+		// Các hướng kiểm tra đường ăn (hàng ngang, cột dọc, đường chéo chính,
+		// đường
 		// chéo phụ)
-		int[][] directions = { { 0, 1 }, // Right
-				{ 1, 0 }, // Down
-				{ 1, 1 }, // Diagonal (\)
-				{ 1, -1 } // Diagonal (/)
+		int[][] directions = {{0, 1}, // Right
+				{1, 0}, // Down
+				{1, 1}, // Diagonal (\)
+				{1, -1} // Diagonal (/)
 		};
 
 		// Duyệt qua từng ô trên bàn cờ để kiểm tra các đường ăn
@@ -192,7 +209,8 @@ public class Bot implements Observer {
 					// Kiểm tra từ ô hiện tại theo hướng dir
 					int r = i;
 					int c = j;
-					while (r >= 0 && r < size && c >= 0 && c < size && (board[r][c] == player || board[r][c] == 0)) {
+					while (r >= 0 && r < size && c >= 0 && c < size
+							&& (board[r][c] == player || board[r][c] == 0)) {
 						if (board[r][c] == player) {
 							length++;
 						} else if (length == 0) {
@@ -213,12 +231,15 @@ public class Bot implements Observer {
 						if (length >= 5) {
 							lineScore = lineWeights[4]; // Đường ăn 5
 						} else {
-							lineScore = lineWeights[length - 1]; // Đường ăn từ 1 đến 4
+							lineScore = lineWeights[length - 1]; // Đường ăn từ
+																	// 1 đến 4
 							if (emptyBefore == 0 || blockedBefore) {
-								lineScore /= 2; // Đường bị chặn hoặc không có ô trống trước
+								lineScore /= 2; // Đường bị chặn hoặc không có ô
+												// trống trước
 							}
 							if (emptyAfter == 0 || blockedAfter) {
-								lineScore /= 2; // Đường bị chặn hoặc không có ô trống sau
+								lineScore /= 2; // Đường bị chặn hoặc không có ô
+												// trống sau
 							}
 						}
 						totalScore += lineScore;
@@ -239,9 +260,7 @@ public class Bot implements Observer {
 				if (position[0] != -1) {
 					int y = position[0];
 					int x = position[1];
-					game.getBoard().signCell(y, x, Game.BOT_TICK);
-					game.setTurn(Game.PLAYER_TURN);
-					game.notifyObserver();
+					game.handleBotAction(y, x);
 				}
 			}
 		}

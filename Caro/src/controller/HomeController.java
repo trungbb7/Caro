@@ -18,18 +18,18 @@ public class HomeController implements MouseListener {
 		String command = btn.getActionCommand();
 		UI ui = UI.getInstance();
 		switch (command) {
-		case "New game":
-			ui.newGame();
-			break;
-		case "Option":
-			ui.goOption();
-			break;
-		case "Statistics":
-			ui.goStatistics();
-			break;
-		case "Exit":
-			System.exit(0);
-			break;
+			case "New game" :
+				ui.newGame();
+				break;
+			case "Option" :
+				ui.goOption();
+				break;
+			case "Statistics" :
+				ui.goStatistics();
+				break;
+			case "Exit" :
+				System.exit(0);
+				break;
 		}
 
 	}

@@ -19,6 +19,14 @@ public class Board {
 		}
 	}
 
+	public void resetBoard() {
+		for (int y = 0; y < size; y++) {
+			for (int x = 0; x < size; x++) {
+				signCell(y, x, Game.NON_TICK);
+			}
+		}
+	}
+
 	public int getSize() {
 		return size;
 	}

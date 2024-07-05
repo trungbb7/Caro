@@ -58,10 +58,7 @@ public class Statistics extends JPanel {
 		innerWrap.add(totalMatchL);
 		innerWrap.add(winL);
 		innerWrap.add(rateL);
-//		innerWrap.setPreferredSize(new Dimension(120, 120));
-//		innerWrap.setMaximumSize(new Dimension(120, 120));
 		wrapPanel.add(Box.createHorizontalGlue());
-//		innerWrap.setBorder(new TitledBorder("inner"));
 		wrapPanel.add(innerWrap);
 		JButton homeBtn = new JButton("Home");
 		homeBtn.setOpaque(true);

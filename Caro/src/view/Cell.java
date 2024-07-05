@@ -10,7 +10,7 @@ import javax.swing.SwingConstants;
 
 import model.Game;
 
-public class Cell extends JLabel {
+public class Cell extends JLabel implements Cloneable {
 	/**
 	 * 
 	 */
@@ -19,13 +19,14 @@ public class Cell extends JLabel {
 	public int tick;
 	public int y;
 	public int x;
+	private int fontSize = 28;
 
 	public Cell(int y, int x) {
 		this.y = y;
 		this.x = x;
 		this.tick = Game.NON_TICK;
 		this.setLayout(new FlowLayout(FlowLayout.CENTER));
-		this.setFont(new Font("Bauhaus 93", Font.PLAIN, 28));
+		this.setFont(new Font("Bauhaus 93", Font.PLAIN, fontSize));
 		this.setHorizontalAlignment(SwingConstants.CENTER);
 		setBorder(BorderFactory.createLineBorder(borderColor, 1));
 		setBackground(new Color(12, 20, 29));
@@ -36,7 +37,7 @@ public class Cell extends JLabel {
 		this.x = x;
 		this.tick = tick;
 		this.setLayout(new FlowLayout(FlowLayout.CENTER));
-		this.setFont(new Font("Bauhaus 93", Font.PLAIN, 28));
+		this.setFont(new Font("Bauhaus 93", Font.PLAIN, fontSize));
 		this.setHorizontalAlignment(SwingConstants.CENTER);
 		setBorder(BorderFactory.createLineBorder(borderColor, 1));
 	}
@@ -45,4 +46,17 @@ public class Cell extends JLabel {
 		this.setBorder(BorderFactory.createLineBorder(color, 2));
 	}
 
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
+
+	public int getFontSize() {
+		return this.fontSize;
+	}
+
+	public void setFontSize(int size) {
+		this.fontSize = size;
+		this.setFont(new Font("Bauhaus 93", Font.PLAIN, size));
+	}
 }

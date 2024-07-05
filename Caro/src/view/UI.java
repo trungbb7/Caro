@@ -43,7 +43,6 @@ public class UI extends JFrame {
 	public void init() {
 		container = this.getContentPane();
 		container.setBackground(Game.BACKGROUND_COLOR);
-//		container.setBackground(new Color(16, 27, 39));
 		card = new CardLayout();
 		container.setLayout(card);
 		match = new Match();

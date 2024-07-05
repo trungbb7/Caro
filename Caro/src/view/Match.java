@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -24,8 +26,19 @@ public class Match extends JPanel implements Observer {
 	private static final long serialVersionUID = 1L;
 	private Color textColor = new Color(203, 207, 212);
 	public Match() {
+		List<Observer> gameBoardList = new ArrayList<>();
+		for (Observer observer : Game.getInstance().getObservers()) {
+			if (observer instanceof GameBoard) {
+				gameBoardList.add(observer);
+			}
+		}
 		Game.resetInstance();
 		Game game = Game.getInstance();
+		for (Observer o : gameBoardList) {
+			game.registerObserver(o);
+		}
+		// new GameBoard();
+		// game.resetState();
 		int size = game.getBoardType();
 		game.registerObserver(this);
 		this.setLayout(new BorderLayout());
@@ -42,7 +55,6 @@ public class Match extends JPanel implements Observer {
 				GameController gc = new GameController();
 				cell.addMouseListener(gc);
 				board.add(cell);
-
 			}
 		}
 		wrapPanel.add(board, BorderLayout.CENTER);
@@ -64,7 +76,7 @@ public class Match extends JPanel implements Observer {
 		 */
 		private static final long serialVersionUID = 1L;
 
-		public Top() {
+		private Top() {
 			this.setLayout(new FlowLayout(FlowLayout.CENTER));
 			MouseListener btnController = new MatchButtonController();
 			JButton homeBtn = new JButton("Home");
@@ -93,14 +105,15 @@ public class Match extends JPanel implements Observer {
 			levelL.setFont(new Font("roboto", Font.BOLD, 16));
 			typeL.setForeground(textColor);
 			typeL.setFont(new Font("roboto", Font.BOLD, 16));
-			
+
 			Game game = Game.getInstance();
 			String level = "Easy";
 			if (game.getLevel() == 2) {
 				level = "Hard";
 			}
 			levelL.setText("Level: " + level);
-			typeL.setText("Board type: " + game.getBoardType() + "x" + game.getBoardType());
+			typeL.setText("Board type: " + game.getBoardType() + "x"
+					+ game.getBoardType());
 			this.add(levelL);
 			this.add(typeL);
 			this.setBackground(new Color(16, 27, 39));
@@ -127,17 +140,23 @@ public class Match extends JPanel implements Observer {
 			if (game.checkFinish()) {
 				UI ui = UI.getInstance();
 				showWinningPositions();
-				String[] options = { "Close", "Home", "Replay" };
+				String[] options = {"Close", "Home", "Replay"};
 				int selection = 0;
 				if (game.getWinner() == Game.PLAYER) {
-					selection = JOptionPane.showOptionDialog(null, "You won", "Congratulations!",
-							JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+					selection = JOptionPane.showOptionDialog(null, "You won",
+							"Congratulations!", JOptionPane.DEFAULT_OPTION,
+							JOptionPane.INFORMATION_MESSAGE, null, options,
+							options[0]);
 				} else if (game.getWinner() == Game.BOT) {
-					selection = JOptionPane.showOptionDialog(null, "You lost", "Opps!", JOptionPane.DEFAULT_OPTION,
-							JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+					selection = JOptionPane.showOptionDialog(null, "You lost",
+							"Opps!", JOptionPane.DEFAULT_OPTION,
+							JOptionPane.INFORMATION_MESSAGE, null, options,
+							options[0]);
 				} else if (game.getWinner() == Game.DRAW) {
-					selection = JOptionPane.showOptionDialog(null, "Draw", "Opps!", JOptionPane.DEFAULT_OPTION,
-							JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+					selection = JOptionPane.showOptionDialog(null, "Draw",
+							"Opps!", JOptionPane.DEFAULT_OPTION,
+							JOptionPane.INFORMATION_MESSAGE, null, options,
+							options[0]);
 				}
 				if (selection == 1) {
 					ui.backHome();
@@ -159,8 +178,8 @@ public class Match extends JPanel implements Observer {
 		}
 		for (int i = 0; i < game.getCompletedCell().length; i++) {
 			int[] position = game.getCompletedCell()[i];
-			game.getBoard().getCell(position[0], position[1]).setBorderColor(color);
-			;
+			game.getBoard().getCell(position[0], position[1])
+					.setBorderColor(color);
 		}
 	}
 }

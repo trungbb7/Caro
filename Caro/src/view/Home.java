@@ -34,35 +34,34 @@ public class Home extends JPanel {
 		statisticsBtn.setActionCommand(statisticsBtn.getText());
 		JButton exitBtn = new JButton("Exit");
 		exitBtn.setActionCommand(exitBtn.getText());
-		
+
 		newGameBtn.setOpaque(true);
 		newGameBtn.setContentAreaFilled(true);
 		newGameBtn.setBorderPainted(false);
-//		newGameBtn.setFocusPainted(false);
 		newGameBtn.setBackground(backgroundColorBtn);
 		newGameBtn.setForeground(Color.WHITE);
 		newGameBtn.setFont(new Font("roboto", Font.BOLD, 12));
-		
+
 		optionBtn.setOpaque(true);
 		optionBtn.setContentAreaFilled(true);
 		optionBtn.setBorderPainted(false);
-//		optionBtn.setFocusPainted(false);
+		// optionBtn.setFocusPainted(false);
 		optionBtn.setBackground(backgroundColorBtn);
 		optionBtn.setForeground(Color.WHITE);
 		optionBtn.setFont(new Font("roboto", Font.BOLD, 12));
-		
+
 		statisticsBtn.setOpaque(true);
 		statisticsBtn.setContentAreaFilled(true);
 		statisticsBtn.setBorderPainted(false);
-//		statisticsBtn.setFocusPainted(false);
+		// statisticsBtn.setFocusPainted(false);
 		statisticsBtn.setBackground(backgroundColorBtn);
 		statisticsBtn.setForeground(Color.WHITE);
 		statisticsBtn.setFont(new Font("roboto", Font.BOLD, 12));
-		
+
 		exitBtn.setOpaque(true);
 		exitBtn.setContentAreaFilled(true);
 		exitBtn.setBorderPainted(false);
-//		exitBtn.setFocusPainted(false);
+		// exitBtn.setFocusPainted(false);
 		exitBtn.setBackground(new Color(238, 102, 119));
 		exitBtn.setForeground(Color.WHITE);
 		exitBtn.setFont(new Font("roboto", Font.BOLD, 12));

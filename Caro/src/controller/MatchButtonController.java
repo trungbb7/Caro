@@ -15,13 +15,12 @@ public class MatchButtonController implements MouseListener {
 		UI ui = UI.getInstance();
 		String command = btn.getActionCommand();
 		switch (command) {
-		case "Replay":
-			ui.newGame();
-			;
-			break;
-		case "Home":
-			ui.backHome();
-			break;
+			case "Replay" :
+				ui.newGame();;
+				break;
+			case "Home" :
+				ui.backHome();
+				break;
 		}
 
 	}

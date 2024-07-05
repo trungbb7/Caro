@@ -29,13 +29,14 @@ public class Game implements Subject {
 
 	public static final String PLAYER_SIGN = "X";
 	public static final String BOT_SIGN = "O";
+	public static final String EMPTY_SIGN = "";
 
 	public static final Color PLAYER_COLOR = new Color(24, 188, 156);
 	public static final Color BOT_COLOR = new Color(238, 102, 119);
-	
+
 	public static final Color BACKGROUND_COLOR = new Color(16, 27, 39);
-	public static final Color TRANSPARENT_COLOR = new Color(0,0,0,0);
-	
+	public static final Color TRANSPARENT_COLOR = new Color(0, 0, 0, 0);
+
 	public static final int HARD_BOT = 2;
 	public static final int EASY_BOT = 1;
 
@@ -58,7 +59,6 @@ public class Game implements Subject {
 		this.state = CONTINUE_STATE;
 		this.winner = DRAW;
 		this.completedCell = new int[5][2];
-		// new Bot(this);
 		new Bot(this, Game.BOT_TICK, level);
 
 	}
@@ -109,7 +109,6 @@ public class Game implements Subject {
 		setTurn(Game.PLAYER_TURN);
 		notifyObserver();
 	}
-	
 
 	public static void resetInstance() {
 		uniqueInstance = new Game();
@@ -346,6 +345,10 @@ public class Game implements Subject {
 		}
 
 		return false;
+	}
+
+	public List<Observer> getObservers() {
+		return this.observers;
 	}
 
 	@Override

@@ -1,12 +1,12 @@
 package controller;
 
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import model.Game;
 import view.Cell;
 
-public class GameController implements MouseListener {
+public class GameController extends MouseAdapter {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -17,18 +17,6 @@ public class GameController implements MouseListener {
 				game.handlePlayerAction(cell.y, cell.x);
 			}
 		}
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 

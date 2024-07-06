@@ -2,6 +2,7 @@ package test;
 
 import javax.swing.UIManager;
 
+import view.GameBoard;
 import view.UI;
 
 public class Test {
@@ -10,7 +11,9 @@ public class Test {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			UI.getInstance();
-			// new GameBoard();
+//			 new GameBoard();
+//			 new GameBoard();
+//			 new GameBoard();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -60,7 +60,7 @@ public class GameBoard extends JFrame implements Observer {
 				Cell cell = game.getBoard().getCell(y, x);
 				Cell cloneCell;
 				try {
-					cloneCell = (Cell) cell.clone();
+					cloneCell = (GrayCell) cell.clone();
 					cloneCell.setFontSize(12);
 					board.add(cloneCell);
 				} catch (CloneNotSupportedException e) {

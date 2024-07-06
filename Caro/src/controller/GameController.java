@@ -17,7 +17,6 @@ public class GameController extends MouseAdapter {
 				game.handlePlayerAction(cell.y, cell.x);
 			}
 		}
-
 	}
 
 	@Override

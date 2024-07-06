@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 
 import controller.MatchButtonController;
 import controller.GameController;
+import model.BoardViewFactory;
 import model.Game;
 import model.Observer;
 
@@ -46,8 +47,9 @@ public class Match extends JPanel implements Observer {
 		wrapPanel.setLayout(new BorderLayout());
 		JPanel state = new State();
 		wrapPanel.add(state, BorderLayout.NORTH);
-		JPanel board = new JPanel();
-		board.setBackground(new Color(12, 20, 29));
+		// JPanel board = new JPanel();
+		JPanel board = BoardViewFactory.createBoardView(game.boardTheme);
+		// board.setBackground(new Color(12, 20, 29));
 		board.setLayout(new GridLayout(size, size, 0, 0));
 		for (int y = 0; y < size; y++) {
 			for (int x = 0; x < size; x++) {

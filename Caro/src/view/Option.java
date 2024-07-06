@@ -13,7 +13,6 @@ import java.util.Enumeration;
 import java.util.Scanner;
 
 import javax.swing.AbstractButton;
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -33,12 +32,12 @@ public class Option extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private Color textColor = new Color(203, 207, 212);
-	private Color backgroundRadioColor = new Color(12, 20, 29);
-	private Color borderColor = new Color(24, 188, 156);
+
 	private static Option uniqueInstance;
 	private JButton applyBtn;
 	private ButtonGroup levelBG;
 	private ButtonGroup typeBG;
+	private ButtonGroup cellBG;
 
 	private Option() {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -50,17 +49,57 @@ public class Option extends JPanel {
 		JRadioButton easyBtn = new JRadioButton("Easy");
 		easyBtn.setFont(new Font("roboto", Font.PLAIN, 14));
 		easyBtn.setActionCommand("easy");
+
+		JRadioButton mediumBtn = new JRadioButton("Medium");
+		mediumBtn.setFont(new Font("roboto", Font.PLAIN, 14));
+		mediumBtn.setActionCommand("medium");
+
 		JRadioButton hardBtn = new JRadioButton("Hard");
 		hardBtn.setFont(new Font("roboto", Font.PLAIN, 14));
 		hardBtn.setActionCommand("hard");
+
 		levelP.add(easyBtn);
+		levelP.add(mediumBtn);
 		levelP.add(hardBtn);
+
 		levelBG.add(easyBtn);
+		levelBG.add(mediumBtn);
 		levelBG.add(hardBtn);
+
 		levelP.setBorder(new TitledBorder(getBorder(), "Level",
 				TitledBorder.DEFAULT_JUSTIFICATION,
 				TitledBorder.DEFAULT_POSITION,
 				new Font("roboto", Font.BOLD, 16), textColor));
+
+		JPanel cellP = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		cellP.setBackground(Game.TRANSPARENT_COLOR);
+		cellBG = new ButtonGroup();
+
+		JRadioButton normalBtn = new JRadioButton("Normal");
+		normalBtn.setFont(new Font("roboto", Font.PLAIN, 14));
+		normalBtn.setActionCommand("Normal");
+
+		JRadioButton darkBtn = new JRadioButton("Dark");
+		darkBtn.setFont(new Font("roboto", Font.PLAIN, 14));
+		darkBtn.setActionCommand("Dark");
+
+		JRadioButton grayBtn = new JRadioButton("Gray");
+		grayBtn.setFont(new Font("roboto", Font.PLAIN, 14));
+		grayBtn.setActionCommand("Gray");
+
+		cellP.add(normalBtn);
+		cellP.add(darkBtn);
+		cellP.add(grayBtn);
+
+		cellBG.add(normalBtn);
+		cellBG.add(darkBtn);
+		cellBG.add(grayBtn);
+
+		cellP.setBorder(new TitledBorder(getBorder(), "Board Theme",
+				TitledBorder.DEFAULT_JUSTIFICATION,
+				TitledBorder.DEFAULT_POSITION,
+				new Font("roboto", Font.BOLD, 16), textColor));
+
 		JPanel typeP = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		typeP.setBackground(Game.TRANSPARENT_COLOR);
 		typeBG = new ButtonGroup();
@@ -79,9 +118,10 @@ public class Option extends JPanel {
 				TitledBorder.DEFAULT_POSITION,
 				new Font("roboto", Font.BOLD, 16), textColor));
 
-		JPanel wrapPanel = new JPanel(new GridLayout(2, 1, 10, 10));
+		JPanel wrapPanel = new JPanel(new GridLayout(3, 1, 10, 10));
 		wrapPanel.setBackground(Game.TRANSPARENT_COLOR);
 		wrapPanel.add(levelP);
+		wrapPanel.add(cellP);
 		wrapPanel.add(typeP);
 		wrapPanel.setPreferredSize(new Dimension(620, 200));
 		wrapPanel.setMaximumSize(new Dimension(620, 200));
@@ -111,6 +151,7 @@ public class Option extends JPanel {
 		try {
 			String levelConfig = "";
 			String typeConfig = "";
+			String cellConfig = "";
 			File file = new File("src\\config");
 			Scanner sc = new Scanner(file);
 			int count = 1;
@@ -119,6 +160,8 @@ public class Option extends JPanel {
 					levelConfig = sc.nextLine().split(":")[1];
 				} else if (count == 2) {
 					typeConfig = sc.nextLine().split(":")[1];
+				} else if (count == 3) {
+					cellConfig = sc.nextLine().split(":")[1];
 				}
 				count++;
 			}
@@ -126,6 +169,16 @@ public class Option extends JPanel {
 			while (levelBtns.hasMoreElements()) {
 				JRadioButton btn = (JRadioButton) levelBtns.nextElement();
 				if (btn.getActionCommand().equals(levelConfig)) {
+					btn.setSelected(true);
+				} else {
+					btn.setSelected(false);
+				}
+			}
+
+			Enumeration<AbstractButton> cellBtns = cellBG.getElements();
+			while (cellBtns.hasMoreElements()) {
+				JRadioButton btn = (JRadioButton) cellBtns.nextElement();
+				if (btn.getActionCommand().equals(cellConfig)) {
 					btn.setSelected(true);
 				} else {
 					btn.setSelected(false);
@@ -151,8 +204,10 @@ public class Option extends JPanel {
 		try {
 			String levelConfig = levelBG.getSelection().getActionCommand();
 			String typeConfig = typeBG.getSelection().getActionCommand();
+			String cellConfig = cellBG.getSelection().getActionCommand();
 			FileWriter fileWriter = new FileWriter("src\\config");
-			fileWriter.write("level:" + levelConfig + "\ntype:" + typeConfig);
+			fileWriter.write("level:" + levelConfig + "\ntype:" + typeConfig
+					+ "\ncell:" + cellConfig);
 			fileWriter.close();
 		} catch (IOException e) {
 			e.printStackTrace();

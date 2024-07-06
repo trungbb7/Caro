@@ -37,7 +37,8 @@ public class Game implements Subject {
 	public static final Color BACKGROUND_COLOR = new Color(16, 27, 39);
 	public static final Color TRANSPARENT_COLOR = new Color(0, 0, 0, 0);
 
-	public static final int HARD_BOT = 2;
+	public static final int HARD_BOT = 3;
+	public static final int MEDIUM_BOT = 2;
 	public static final int EASY_BOT = 1;
 
 	private int boardType;
@@ -50,17 +51,27 @@ public class Game implements Subject {
 	private int[][] completedCell;
 	private int winner;
 	private Board board;
+	private StrategyBot bot;
+	public String boardTheme;
 
 	private Game() {
 		loadConfig();
+
+		// this.board = new Board(boardType, Cell cell);
+		// this.bot = BotStrategyFactory.createBotStrategy(level, this);
 		this.board = new Board(boardType);
 		this.observers = new ArrayList<>();
 		this.turn = PLAYER_TURN;
 		this.state = CONTINUE_STATE;
 		this.winner = DRAW;
 		this.completedCell = new int[5][2];
-		new Bot(this, Game.BOT_TICK, level);
-
+		if (this.level == EASY_BOT) {
+			this.bot = new StrategyEasyBot(this);
+		} else if (this.level == MEDIUM_BOT) {
+			this.bot = new StrategyMediumBot(this, BOT_TICK);
+		} else if (this.level == HARD_BOT) {
+			this.bot = new StrategyHardBot(this, BOT_TICK);
+		}
 	}
 
 	private void loadConfig() {
@@ -72,13 +83,17 @@ public class Game implements Subject {
 				if (count == 1) {
 					String level = sc.nextLine().split(":")[1];
 					if (level.equals("easy")) {
-						this.level = 1;
+						this.level = EASY_BOT;
 					} else if (level.equals("hard")) {
-						this.level = 2;
+						this.level = HARD_BOT;
+					} else if (level.equals("medium")) {
+						this.level = MEDIUM_BOT;
 					}
 				} else if (count == 2) {
 					String type = sc.nextLine().split(":")[1];
 					this.boardType = Integer.parseInt(type);
+				} else if (count == 3) {
+					boardTheme = sc.nextLine().split(":")[1];
 				}
 				count++;
 			}
@@ -364,7 +379,8 @@ public class Game implements Subject {
 
 	@Override
 	public void notifyObserver() {
-		for (Observer o : this.observers) {
+		for (int i = observers.size() - 1; i >= 0; i--) {
+			Observer o = observers.get(i);
 			o.update();
 		}
 

@@ -29,7 +29,6 @@ public class Cell extends JLabel implements Cloneable {
 		this.setFont(new Font("Bauhaus 93", Font.PLAIN, fontSize));
 		this.setHorizontalAlignment(SwingConstants.CENTER);
 		setBorder(BorderFactory.createLineBorder(borderColor, 1));
-		// setBackground(new Color(12, 20, 29));
 	}
 
 	public Cell(int y, int x, int tick) {

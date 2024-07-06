@@ -57,8 +57,6 @@ public class Game implements Subject {
 	private Game() {
 		loadConfig();
 
-		// this.board = new Board(boardType, Cell cell);
-		// this.bot = BotStrategyFactory.createBotStrategy(level, this);
 		this.board = new Board(boardType);
 		this.observers = new ArrayList<>();
 		this.turn = PLAYER_TURN;

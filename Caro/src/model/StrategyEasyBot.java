@@ -1,4 +1,3 @@
-// StrategyEasyBot.java
 package model;
 
 import java.util.ArrayList;

@@ -38,8 +38,6 @@ public class Match extends JPanel implements Observer {
 		for (Observer o : gameBoardList) {
 			game.registerObserver(o);
 		}
-		// new GameBoard();
-		// game.resetState();
 		int size = game.getBoardType();
 		game.registerObserver(this);
 		this.setLayout(new BorderLayout());
@@ -47,9 +45,10 @@ public class Match extends JPanel implements Observer {
 		wrapPanel.setLayout(new BorderLayout());
 		JPanel state = new State();
 		wrapPanel.add(state, BorderLayout.NORTH);
-		// JPanel board = new JPanel();
+
+		// simple factory
 		JPanel board = BoardViewFactory.createBoardView(game.boardTheme);
-		// board.setBackground(new Color(12, 20, 29));
+
 		board.setLayout(new GridLayout(size, size, 0, 0));
 		for (int y = 0; y < size; y++) {
 			for (int x = 0; x < size; x++) {
@@ -110,8 +109,11 @@ public class Match extends JPanel implements Observer {
 
 			Game game = Game.getInstance();
 			String level = "Easy";
-			if (game.getLevel() == 2) {
+
+			if (game.getLevel() == 3) {
 				level = "Hard";
+			} else if (game.getLevel() == 2) {
+				level = "Medium";
 			}
 			levelL.setText("Level: " + level);
 			typeL.setText("Board type: " + game.getBoardType() + "x"

@@ -1,4 +1,3 @@
-// StrategyBot.java
 package model;
 
 public interface StrategyBot {
